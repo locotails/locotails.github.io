@@ -5,71 +5,150 @@
   <meta name="viewport" content="width=device-width,initial-scale=1" />
   <title>LoCoTails — Bald verfügbar</title>
   <meta name="description" content="locotails — Kalorienarme Cocktails. Bald verfügbar. Melde dich für den Newsletter an." />
+
+  <!-- Hinweis: Lege die Webfont-Dateien in /fonts/Desdemona.woff2 und /fonts/AlasassyCaps.woff2 -->
   <style>
-    :root {
-      --bg: #F7F0E0;
-      --text: #26A8B1;
-      --btn-bg: #F37021;
-      --btn-text: #F7F0E0;
-      --card: rgba(255,255,255,0.6);
-      --glass: rgba(255,255,255,0.2);
+    /* Webfont-Einbindung (lokale Dateien im Repo) */
+    @font-face{
+      font-family: 'Desdemona';
+      src: url('/fonts/Desdemona.woff2') format('woff2'),
+           url('/fonts/Desdemona.woff') format('woff');
+      font-weight: 400;
+      font-style: normal;
+      font-display: swap;
     }
+    @font-face{
+      font-family: 'AlasassyCaps';
+      src: url('/fonts/AlasassyCaps.woff2') format('woff2'),
+           url('/fonts/AlasassyCaps.woff') format('woff');
+      font-weight: 400;
+      font-style: normal;
+      font-display: swap;
+    }
+
+    :root{
+      --bg: #F7F0E0;        /* gewünschter Hintergrund */
+      --text: #26A8B1;      /* gewünschte Schriftfarbe (außer Order now) */
+      --order-bg: #F37021;  /* Order now Button Hintergrund */
+      --order-text: #F7F0E0; /* Order now Button Textfarbe */
+      --card: rgba(0,0,0,0.03);
+      --muted: rgba(38,168,177,0.8);
+      --glass: rgba(38,168,177,0.06);
+    }
+
     *{box-sizing:border-box}
     body{
-      font-family:Inter, ui-sans-serif, system-ui, -apple-system, 'Segoe UI', Roboto, 'Helvetica Neue', Arial;
-      margin:0; background:var(--bg); color:var(--text); -webkit-font-smoothing:antialiased;
+      margin:0;
+      background: var(--bg);
+      color: var(--text);
+      -webkit-font-smoothing:antialiased;
+      font-family: 'AlasassyCaps', system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial;
     }
-    .container{max-width:1100px;margin:56px auto;padding:24px}
-    header{display:flex;align-items:center;justify-content:flex-start;gap:12px}
-    .logo{display:flex;gap:12px;align-items:center}
-    .logo img{width:48px;height:48px;border-radius:12px;object-fit:cover;}
-    .logo-text{display:flex;flex-direction:column;line-height:1}
-    .logo-text strong{font-size:1.2rem;color:var(--text);}
-    .logo-text span{font-size:0.9rem;color:var(--text);}
-    h1{font-size:clamp(28px,4vw,44px);margin:18px 0 6px;color:var(--text)}
-    p.lead{color:var(--text);font-size:1.05rem;margin:0 0 28px}
 
-    .card{background:var(--card);border-radius:14px;padding:28px;box-shadow:0 6px 30px rgba(0,0,0,0.1);display:flex;gap:28px;align-items:center}
+    .container{max-width:1100px;margin:56px auto;padding:24px}
+
+    header{display:flex;align-items:center;justify-content:space-between}
+    .logo{display:flex;gap:12px;align-items:center}
+    .logo .mark{width:56px;height:56px;flex:0 0 56px;border-radius:50%;overflow:hidden;display:flex;align-items:center;justify-content:center;background:transparent}
+    .logo .mark img{width:100%;height:100%;object-fit:cover;display:block}
+
+    /* Logo-Text */
+    .brand {
+      line-height:1;
+      display:flex;
+      flex-direction:column;
+    }
+    .brand .title{
+      font-family: 'Desdemona', 'Times New Roman', serif;
+      font-size:20px;
+      color:var(--text);
+      letter-spacing:0.5px;
+    }
+    .brand .subtitle{
+      font-family: 'AlasassyCaps', system-ui, sans-serif;
+      font-size:12px;
+      color:var(--muted);
+      margin-top:4px;
+      text-transform:none;
+    }
+
+    /* entferne Header-Order Button: nav leer / unsichtbar */
+    nav{min-width:40px}
+
+    h1{font-size:clamp(28px,4vw,44px);margin:18px 0 6px; font-family:'Desdemona', serif; color:var(--text)}
+    p.lead{color:var(--text);font-size:1.05rem;margin:0 0 28px; font-family:'AlasassyCaps', sans-serif}
+
+    .card{
+      background: var(--card);
+      border-radius:14px;padding:28px;
+      box-shadow: 0 4px 18px rgba(0,0,0,0.06);
+      display:flex;gap:28px;align-items:center;
+    }
     .hero-left{flex:1}
     .hero-right{width:320px}
 
     .cta{display:flex;gap:12px;margin-top:18px}
-    .btn{padding:12px 18px;border-radius:10px;border:0;cursor:pointer;font-weight:600}
-    .btn-primary{background:var(--btn-bg);color:var(--btn-text)}
-    .btn-ghost{background:transparent;border:1px solid rgba(0,0,0,0.1);color:var(--text)}
+    .btn{
+      padding:12px 18px;border-radius:10px;border:0;cursor:pointer;font-weight:600;
+      font-family:'AlasassyCaps', sans-serif;
+      color: var(--text);
+      background: transparent;
+    }
+
+    /* Order now = einzige Ausnahme: orange bg, helles text */
+    .btn-order{
+      background: var(--order-bg);
+      color: var(--order-text);
+      border: none;
+      box-shadow: 0 6px 18px rgba(243,112,33,0.18);
+      transition: transform .12s ease;
+    }
+    .btn-order:active{ transform: translateY(1px) }
+
+    .btn-ghost{background:transparent;border:1px solid rgba(38,168,177,0.12);color:var(--text)}
 
     .features{display:flex;gap:12px;flex-wrap:wrap;margin-top:18px}
-    .chip{background:var(--glass);padding:8px 12px;border-radius:999px;font-size:0.95rem;color:var(--text)}
+    .chip{background:var(--glass);padding:8px 12px;border-radius:999px;font-size:0.95rem;color:var(--text);font-family:'AlasassyCaps',sans-serif}
 
-    footer{margin-top:28px;color:var(--text);font-size:0.95rem}
+    footer{margin-top:28px;color:var(--muted);font-size:0.95rem;font-family:'AlasassyCaps',sans-serif}
 
     /* Modal */
-    .modal-backdrop{position:fixed;inset:0;background:rgba(0,0,0,0.4);display:none;align-items:center;justify-content:center;z-index:50}
-    .modal{background:#fff;padding:22px;border-radius:12px;max-width:520px;width:92%;box-shadow:0 8px 40px rgba(0,0,0,0.2);color:#333}
-    .modal h2{margin:0 0 6px}
-    .modal p{color:#666;margin:0 0 16px}
-    .close-btn{position:absolute;right:12px;top:10px;background:transparent;border:0;color:#666;font-size:20px;cursor:pointer}
+    .modal-backdrop{position:fixed;inset:0;background:rgba(0,0,0,0.35);display:none;align-items:center;justify-content:center;z-index:50}
+    .modal{background:#fff;padding:22px;border-radius:12px;max-width:520px;width:92%;box-shadow:0 8px 40px rgba(0,0,0,0.12);color:var(--text)}
+    .modal h2{margin:0 0 6px;font-family:'Desdemona',serif}
+    .modal p{color:var(--muted);margin:0 0 16px;font-family:'AlasassyCaps',sans-serif}
+    .close-btn{position:absolute;right:12px;top:10px;background:transparent;border:0;color:var(--muted);font-size:20px;cursor:pointer}
 
-    form input[type=email]{width:100%;padding:12px;border-radius:10px;border:1px solid #ccc;background:transparent;color:#333;margin-bottom:12px}
+    form input[type=email]{width:100%;padding:12px;border-radius:10px;border:1px solid rgba(38,168,177,0.12);background:transparent;color:var(--text);margin-bottom:12px;font-family:'AlasassyCaps',sans-serif}
     form .form-row{display:flex;gap:8px}
     form .form-row .btn{flex:1}
-    .hint{font-size:0.85rem;color:#666;margin-top:8px}
+    .hint{font-size:0.85rem;color:var(--muted);margin-top:8px;font-family:'AlasassyCaps',sans-serif}
 
-    .thanks{background:#e0f7f7;padding:18px;border-radius:10px;margin-top:12px;color:#26A8B1}
+    .thanks{background:transparent;padding:18px;border-radius:10px;margin-top:12px;color:var(--text);font-family:'AlasassyCaps',sans-serif}
 
-    @media (max-width:800px){.card{flex-direction:column}.hero-right{width:100%}}
+    @media (max-width:800px){
+      .card{flex-direction:column}.hero-right{width:100%}
+      .logo .mark{width:48px;height:48px}
+    }
   </style>
 </head>
 <body>
   <div class="container">
     <header>
-      <div class="logo">
-        <img src="ChatGPT Image 16. Okt. 2025, 11_54_45.png" alt="LoCoTails Logo">
-        <div class="logo-text">
-          <strong>LoCoTails</strong>
-          <span>Kalorienarme Cocktails</span>
+      <div class="logo" role="img" aria-label="LoCoTails Logo">
+        <div class="mark">
+          <!-- Logo: Datei muss im Repo liegen unter dem angegebenen Dateinamen -->
+          <img src="ChatGPT Image 16. Okt. 2025, 11_54_45.png" alt="LoCoTails Logo">
+        </div>
+        <div class="brand">
+          <div class="title">LoCoTails</div>
+          <div class="subtitle">Kalorienarme Cocktails</div>
         </div>
       </div>
+
+      <nav>
+        <!-- Header-Order-Button entfernt gemäß Anforderung -->
+      </nav>
     </header>
 
     <main>
@@ -79,7 +158,10 @@
           <p class="lead">Ready-to-drink Cocktails mit Persönlichkeit. Perfekt portioniert, Kalorienarm — All of the flavour, none of the guilt.</p>
 
           <div class="cta">
-            <button class="btn btn-primary" onclick="openModal()">Order now</button>
+            <!-- Order now verbleibt im Main-Bereich mit speziellen Farben -->
+            <button class="btn btn-order" onclick="openModal()">Order now</button>
+            <!-- falls Bedarf: anderer Button -->
+            <a class="btn btn-ghost" href="#features" role="link">Mehr erfahren</a>
           </div>
 
           <div class="features" id="features" aria-hidden="false">
@@ -96,7 +178,7 @@
       </section>
 
       <footer>
-        <div>© LoCoTails — Alle Rechte vorbehalten.</div>
+        <div>© locotails — Alle Rechte vorbehalten.</div>
       </footer>
     </main>
   </div>
@@ -108,19 +190,21 @@
       <h2>Das Produkt ist noch nicht verfügbar</h2>
       <p>Melde dich für den Newsletter an, um auf dem Laufenden zu bleiben.</p>
 
-      <form id="newsletterForm" action="https://formsubmit.co/587dbd65f10a28e567aefe20d1db3fb5" method="POST">
+      <!-- Newsletter-Formular: Ersetze die action-URL durch deine FormSubmit-Adresse falls nötig -->
+      <form id="newsletterForm" action="https://formsubmit.co/REPLACE_WITH_YOUR_EMAIL@example.com" method="POST">
         <input type="text" name="_honey" style="display:none">
-        <input type="hidden" name="_subject" value="Neue Newsletter-Anmeldung: LoCoTails">
+        <input type="hidden" name="_subject" value="Neue Newsletter-Anmeldung: locotails">
         <input type="hidden" name="_captcha" value="false">
 
-        <input id="email" name="email" type="email" placeholder="Deine E‑Mail-Adresse" required autocomplete="email">
+        <label for="email" style="display:none">E-Mail</label>
+        <input id="email" name="email" type="email" placeholder="Deine E-Mail-Adresse" required autocomplete="email">
 
         <div class="form-row">
-          <button class="btn btn-primary" type="submit">Anmelden</button>
+          <button class="btn btn-ghost" type="submit">Anmelden</button>
           <button class="btn btn-ghost" type="button" onclick="closeModal()">Abbrechen</button>
         </div>
 
-        <div class="hint">Wir verwenden FormSubmit. Ersetze <code>REPLACE_WITH_YOUR_EMAIL@example.com</code> durch deine E‑Mail, damit Anmeldungen an dich gesendet werden.</div>
+        <div class="hint">Wir verwenden FormSubmit. Ersetze die <code>action</code>-URL oben durch deine FormSubmit-Adresse, damit Anmeldungen per E-Mail an dich gesendet werden.</div>
       </form>
 
       <div id="thanksMessage" class="thanks" style="display:none">Danke! Wir haben deine Anmeldung erhalten. :)</div>
@@ -150,19 +234,36 @@
       e.preventDefault();
       const email = form.email.value.trim();
       if(!email || !/^\S+@\S+\.\S+$/.test(email)){
-        alert('Bitte gib eine gültige E‑Mail-Adresse ein.');
+        alert('Bitte gib eine gültige E-Mail-Adresse ein.');
         return;
       }
+
       const data = new FormData(form);
-      fetch(form.action, { method:'POST', body:data, headers:{'Accept':'application/json'} })
-        .then(response=>{
-          if(response.ok){ form.style.display='none'; thanks.style.display='block'; }
-          else{ response.json().then(data=>alert('Fehler: '+(data.message||'Bitte später erneut versuchen.')))}
-        }).catch(err=>{console.error(err); alert('Netzwerkfehler — bitte später erneut versuchen.')});
+      fetch(form.action, {
+        method: 'POST',
+        body: data,
+        headers: { 'Accept': 'application/json' }
+      }).then(response => {
+        if (response.ok) {
+          form.style.display = 'none';
+          thanks.style.display = 'block';
+        } else {
+          response.json().then(data => {
+            alert('Fehler beim Absenden: ' + (data.message || 'Bitte später erneut versuchen.'))
+          }).catch(()=> alert('Fehler beim Absenden — bitte später erneut versuchen.'));
+        }
+      }).catch(err => {
+        console.error(err);
+        alert('Netzwerkfehler — bitte später erneut versuchen.');
+      })
     });
 
-    document.addEventListener('keydown', (e)=>{ if(e.key==='Escape') closeModal(); });
-    backdrop.addEventListener('click',(e)=>{ if(e.target===backdrop) closeModal(); });
+    document.addEventListener('keydown', (e) => {
+      if (e.key === 'Escape') closeModal();
+    });
+    backdrop.addEventListener('click', (e) => {
+      if (e.target === backdrop) closeModal();
+    });
   </script>
 </body>
 </html>
