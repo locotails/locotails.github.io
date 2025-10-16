@@ -6,44 +6,56 @@
   <title>LoCoTails — Bald verfügbar</title>
   <meta name="description" content="locotails — Kalorienarme Cocktails. Bald verfügbar. Melde dich für den Newsletter an." />
   <style>
-    :root{--bg:#0f1724;--card:#0b1220;--accent:#ff6b6b;--muted:#9aa4b2;--glass: rgba(255,255,255,0.04)}
+    :root {
+      --bg: #F7F0E0;
+      --text: #26A8B1;
+      --btn-bg: #F37021;
+      --btn-text: #F7F0E0;
+      --card: rgba(255,255,255,0.6);
+      --glass: rgba(255,255,255,0.2);
+    }
     *{box-sizing:border-box}
-    body{font-family:Inter, ui-sans-serif, system-ui, -apple-system, 'Segoe UI', Roboto, 'Helvetica Neue', Arial; margin:0; background:linear-gradient(180deg,#071020 0%, #0b1530 100%); color:#e6eef6; -webkit-font-smoothing:antialiased}
+    body{
+      font-family:Inter, ui-sans-serif, system-ui, -apple-system, 'Segoe UI', Roboto, 'Helvetica Neue', Arial;
+      margin:0; background:var(--bg); color:var(--text); -webkit-font-smoothing:antialiased;
+    }
     .container{max-width:1100px;margin:56px auto;padding:24px}
-
-    header{display:flex;align-items:center;justify-content:space-between}
+    header{display:flex;align-items:center;justify-content:flex-start;gap:12px}
     .logo{display:flex;gap:12px;align-items:center}
-    .logo .mark{width:48px;height:48px;border-radius:12px;background:linear-gradient(135deg,var(--accent),#ff9a9a);display:flex;align-items:center;justify-content:center;font-weight:700;color:#08101a}
-    h1{font-size:clamp(28px,4vw,44px);margin:18px 0 6px}
-    p.lead{color:var(--muted);font-size:1.05rem;margin:0 0 28px}
+    .logo img{width:48px;height:48px;border-radius:12px;object-fit:cover;}
+    .logo-text{display:flex;flex-direction:column;line-height:1}
+    .logo-text strong{font-size:1.2rem;color:var(--text);}
+    .logo-text span{font-size:0.9rem;color:var(--text);}
+    h1{font-size:clamp(28px,4vw,44px);margin:18px 0 6px;color:var(--text)}
+    p.lead{color:var(--text);font-size:1.05rem;margin:0 0 28px}
 
-    .card{background:linear-gradient(180deg, rgba(255,255,255,0.02), rgba(255,255,255,0.01));border-radius:14px;padding:28px;box-shadow:0 6px 30px rgba(2,6,23,0.6);display:flex;gap:28px;align-items:center}
+    .card{background:var(--card);border-radius:14px;padding:28px;box-shadow:0 6px 30px rgba(0,0,0,0.1);display:flex;gap:28px;align-items:center}
     .hero-left{flex:1}
     .hero-right{width:320px}
 
     .cta{display:flex;gap:12px;margin-top:18px}
     .btn{padding:12px 18px;border-radius:10px;border:0;cursor:pointer;font-weight:600}
-    .btn-primary{background:linear-gradient(90deg,var(--accent),#ff8c66);color:#07101a}
-    .btn-ghost{background:transparent;border:1px solid rgba(255,255,255,0.06);color:var(--muted)}
+    .btn-primary{background:var(--btn-bg);color:var(--btn-text)}
+    .btn-ghost{background:transparent;border:1px solid rgba(0,0,0,0.1);color:var(--text)}
 
     .features{display:flex;gap:12px;flex-wrap:wrap;margin-top:18px}
-    .chip{background:var(--glass);padding:8px 12px;border-radius:999px;font-size:0.95rem;color:var(--muted)}
+    .chip{background:var(--glass);padding:8px 12px;border-radius:999px;font-size:0.95rem;color:var(--text)}
 
-    footer{margin-top:28px;color:var(--muted);font-size:0.95rem}
+    footer{margin-top:28px;color:var(--text);font-size:0.95rem}
 
     /* Modal */
-    .modal-backdrop{position:fixed;inset:0;background:rgba(2,6,23,0.6);display:none;align-items:center;justify-content:center;z-index:50}
-    .modal{background:linear-gradient(180deg,#071224,#081428);padding:22px;border-radius:12px;max-width:520px;width:92%;box-shadow:0 8px 40px rgba(2,6,23,0.7);color:#e6eef6}
+    .modal-backdrop{position:fixed;inset:0;background:rgba(0,0,0,0.4);display:none;align-items:center;justify-content:center;z-index:50}
+    .modal{background:#fff;padding:22px;border-radius:12px;max-width:520px;width:92%;box-shadow:0 8px 40px rgba(0,0,0,0.2);color:#333}
     .modal h2{margin:0 0 6px}
-    .modal p{color:var(--muted);margin:0 0 16px}
-    .close-btn{position:absolute;right:12px;top:10px;background:transparent;border:0;color:var(--muted);font-size:20px;cursor:pointer}
+    .modal p{color:#666;margin:0 0 16px}
+    .close-btn{position:absolute;right:12px;top:10px;background:transparent;border:0;color:#666;font-size:20px;cursor:pointer}
 
-    form input[type=email]{width:100%;padding:12px;border-radius:10px;border:1px solid rgba(255,255,255,0.06);background:transparent;color:inherit;margin-bottom:12px}
+    form input[type=email]{width:100%;padding:12px;border-radius:10px;border:1px solid #ccc;background:transparent;color:#333;margin-bottom:12px}
     form .form-row{display:flex;gap:8px}
     form .form-row .btn{flex:1}
-    .hint{font-size:0.85rem;color:var(--muted);margin-top:8px}
+    .hint{font-size:0.85rem;color:#666;margin-top:8px}
 
-    .thanks{background:linear-gradient(180deg,#071428,#08203a);padding:18px;border-radius:10px;margin-top:12px;color:#cfeff4}
+    .thanks{background:#e0f7f7;padding:18px;border-radius:10px;margin-top:12px;color:#26A8B1}
 
     @media (max-width:800px){.card{flex-direction:column}.hero-right{width:100%}}
   </style>
@@ -52,15 +64,12 @@
   <div class="container">
     <header>
       <div class="logo">
-        <div class="mark">L</div>
-        <div>
-          <strong>locotails</strong>
-          <div style="font-size:0.9rem;color:var(--muted)">Innovative Cocktail-Mischungen</div>
+        <img src="ChatGPT Image 16. Okt. 2025, 11_54_45.png" alt="LoCoTails Logo">
+        <div class="logo-text">
+          <strong>LoCoTails</strong>
+          <span>Kalorienarme Cocktails</span>
         </div>
       </div>
-      <nav>
-        <button class="btn btn-ghost" onclick="openModal()">Order now</button>
-      </nav>
     </header>
 
     <main>
@@ -71,7 +80,6 @@
 
           <div class="cta">
             <button class="btn btn-primary" onclick="openModal()">Order now</button>
-            <!--a class="btn btn-ghost" href="#features">Mehr erfahren</a-->
           </div>
 
           <div class="features" id="features" aria-hidden="false">
@@ -88,7 +96,7 @@
       </section>
 
       <footer>
-        <div>© locotails — Alle Rechte vorbehalten.</div>
+        <div>© LoCoTails — Alle Rechte vorbehalten.</div>
       </footer>
     </main>
   </div>
@@ -100,18 +108,11 @@
       <h2>Das Produkt ist noch nicht verfügbar</h2>
       <p>Melde dich für den Newsletter an, um auf dem Laufenden zu bleiben.</p>
 
-      <!-- Newsletter-Formular: Ersetze REPLACE_WITH_YOUR_EMAIL@example.com mit deiner Empfangs-E‑Mail -->
       <form id="newsletterForm" action="https://formsubmit.co/587dbd65f10a28e567aefe20d1db3fb5" method="POST">
-        <!-- Honeypot zum Schutz vor Bots -->
         <input type="text" name="_honey" style="display:none">
-        <!-- Weiterleitung nach erfolgreichem Absenden (optional) -->
-        <!--input type="hidden" name="_next" value="https://example.com/danke.html"-->
-        <!-- Betreff der E‑Mail -->
-        <input type="hidden" name="_subject" value="Neue Newsletter-Anmeldung: locotails">
-        <!-- Captcha ausschalten, Formsubmit bietet zusätzliche Einstellungen falls nötig -->
+        <input type="hidden" name="_subject" value="Neue Newsletter-Anmeldung: LoCoTails">
         <input type="hidden" name="_captcha" value="false">
 
-        <label for="email" style="display:none">E‑Mail</label>
         <input id="email" name="email" type="email" placeholder="Deine E‑Mail-Adresse" required autocomplete="email">
 
         <div class="form-row">
@@ -145,50 +146,23 @@
       form.reset();
     }
 
-    // FormSubmit: wir zeigen eine Dankesmeldung statt Redirect (FormSubmit sendet trotzdem die E‑Mail)
     form.addEventListener('submit', function(e){
-      // Wenn du _next in hidden setzt, FormSubmit wird normalerweise weiterleiten.
-      // Wir zeigen die lokale Dankesmeldung kurz an und verhindern die sofortige Navigation
-      // damit die Seite nicht wechselt. Entferne e.preventDefault() falls du _next nutzen willst.
       e.preventDefault();
-
-      // Einfache Validierung
       const email = form.email.value.trim();
       if(!email || !/^\S+@\S+\.\S+$/.test(email)){
         alert('Bitte gib eine gültige E‑Mail-Adresse ein.');
         return;
       }
-
-      // Sende das Formular per fetch an FormSubmit (so bleibt die Seite hier)
       const data = new FormData(form);
-      fetch(form.action, {
-        method: 'POST',
-        body: data,
-        headers: { 'Accept': 'application/json' }
-      }).then(response => {
-        if (response.ok) {
-          form.style.display = 'none';
-          thanks.style.display = 'block';
-        } else {
-          response.json().then(data => {
-            alert('Fehler beim Absenden: ' + (data.message || 'Bitte später erneut versuchen.'))
-          })
-        }
-      }).catch(err => {
-        console.error(err);
-        alert('Netzwerkfehler — bitte später erneut versuchen.');
-      })
+      fetch(form.action, { method:'POST', body:data, headers:{'Accept':'application/json'} })
+        .then(response=>{
+          if(response.ok){ form.style.display='none'; thanks.style.display='block'; }
+          else{ response.json().then(data=>alert('Fehler: '+(data.message||'Bitte später erneut versuchen.')))}
+        }).catch(err=>{console.error(err); alert('Netzwerkfehler — bitte später erneut versuchen.')});
     });
 
-    // close modal on Esc
-    document.addEventListener('keydown', (e) => {
-      if (e.key === 'Escape') closeModal();
-    });
-
-    // close when clicking outside modal content
-    backdrop.addEventListener('click', (e) => {
-      if (e.target === backdrop) closeModal();
-    });
+    document.addEventListener('keydown', (e)=>{ if(e.key==='Escape') closeModal(); });
+    backdrop.addEventListener('click',(e)=>{ if(e.target===backdrop) closeModal(); });
   </script>
 </body>
 </html>
